@@ -22,4 +22,34 @@ $(document).ready(function () {
         predictedForecast(inputUsed);
       }
     });
+  
+    // Obtain all searches from local storage
+    var allHistory = JSON.parse(localStorage.getItem("history")) || [];
+  
+    // Initializes the history feature to be able to identify all elements greater than or equal to 0
+    if (allHistory.length > 0) {
+      currentWeather(allHistory[allHistory.length - 1]);
+    }
+    // Adds new row dynamically for each element in the history array
+    for (var i = 0; i < allHistory.length; i++) {
+      createRow(allHistory[i]);
+    }
+  
+    //puts the searched cities underneath the previous searched city 
+    function createRow(text) {
+      var listItem = document.createElement("li");
+      listItem.classList.add("list-group-item");
+      listItem.textContent = text;
+      viewHistory.appendChild(listItem);
+    }
+  
+    //listener for list item on click function
+    viewHistory.addEventListener("click", function (event) {
+      if(event.target.tagName === "LI") {
+        currentWeather(event.target.textContent);
+        predictedForecast(event.target.textContent);
+      }
+    });
+
+  
   });
