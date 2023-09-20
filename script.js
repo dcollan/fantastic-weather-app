@@ -126,4 +126,46 @@ $(document).ready(function () {
         console.log(data);
       });
     }
+    
+    function predictedForecast(inputUsed) {
+      $.ajax({
+        type: "GET",
+        url: "https://api.openweathermap.org/data/2.5/forecast?q=" + inputUsed + "&appid=f710269771dbeed9b9555cbea85a6715",
+  
+      }).then(function (data) {
+        console.log(data);
+        currentForecast.innerHTML = "<h4>5-Day Forecast:</h4>";
+
+        var newForecast = document.createElement("div");
+        newForecast.className = "row";
+        currentForecast.appendChild(newForecast);
+  
+        // Be able to loop so that five days of a predicted forecast will appear in individual cards
+        for (var i = 0; i < data.list.length; i++) {
+  
+          if (data.list[i].dt_txt.indexOf("15:00:00") !== -1) {
+  
+            var cardTitle = document.createElement("h3");
+            cardTitle.classList.add("card-title");
+            cardTitle.textContent = new Date(data.list[i].dt_txt).toLocaleDateString();
+            
+            var cardIcon = document.createElement("img");
+            cardIcon.setAttribute("src", "https://openweathermap.org/img/w/" + data.list[i].weather[0].icon + ".png");
+            
+            var cardPackage = $("<div>").addClass("col-md-2.5");
+            var allCards = $("<div>").addClass("card bg-primary text-white");
+            var cardBody = $("<div>").addClass("card-body p-2");
+            var predictedHumidity = $("<p>").addClass("card-text").text("Humidity: " + data.list[i].main.humidity + "%");
+            var predictedTemperature = $("<p>").addClass("card-text").text("Temperature: " + data.list[i].main.temp + " °F");
+            var predictedWind = $("<p>").addClass("card-text").text("Wind Speed: " + data.list[i].wind.speed + " MPH");
+  
+            // Append all cards together using jQuery
+            cardPackage.append(allCards.append(cardBody.append(cardTitle, cardIcon, predictedTemperature, predictedWind, predictedHumidity)));
+            
+            // Append the card package to be displayed as a row of items
+            $("#forecast .row").append(cardPackage);
+          }
+        }
+      });
+    }
   });
