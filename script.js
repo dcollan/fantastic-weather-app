@@ -1,6 +1,6 @@
 var viewWeather = document.getElementById("search-button");
-var currentDay = document.getElementById("today");
-var currentForecast = document.getElementById("forecast");
+var currentDay = document.getElementById("present-day");
+var currentForecast = document.getElementById("present-forecast");
 var viewHistory = document.querySelector(".history");
 
 $(document).ready(function () {
@@ -152,7 +152,7 @@ $(document).ready(function () {
             var cardIcon = document.createElement("img");
             cardIcon.setAttribute("src", "https://openweathermap.org/img/w/" + data.list[i].weather[0].icon + ".png");
             
-            var cardPackage = $("<div>").addClass("col-md-2.5");
+            var cardPackage = $("<div> <br> <br>").addClass("col-md-2.5");
             var allCards = $("<div>").addClass("card bg-primary text-white");
             var cardBody = $("<div>").addClass("card-body p-2");
             var predictedHumidity = $("<p>").addClass("card-text").text("Humidity: " + data.list[i].main.humidity + "%");
@@ -163,7 +163,7 @@ $(document).ready(function () {
             cardPackage.append(allCards.append(cardBody.append(cardTitle, cardIcon, predictedTemperature, predictedWind, predictedHumidity)));
             
             // Append the card package to be displayed as a row of items
-            $("#forecast .row").append(cardPackage);
+            $("#present-forecast .row").append(cardPackage);
           }
         }
       });
