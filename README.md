@@ -26,7 +26,7 @@ THEN I am again presented with current and future conditions for that city
 
 Provided with the API link to a weather website (https://api.openweathermap.org/data/2.5/forecast?lat={lat}&lon={lon}&appid={API key}), using your own API key, create a functional weather website that will return the current weather once the user clicks submit on a form field for a specific entered city. Once the user enters submit, the page will also return the predicted forecast for the next five days, where all of the searches the user has done will be displayed onscreen based on the local storage.
 
-![img](.Assets/page-screenshot.png)
+![img](./Assets/page-screenshot.png)
 
 ## How to Run
 
